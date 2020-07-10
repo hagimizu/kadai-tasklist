@@ -1,10 +1,14 @@
-<h1>タスク一覧</h1>
+<% if logged_in? %>
+  <h1>タスク一覧</h1>
+  <%= link_to "タスク新規作成", new_path %>
+  <ul>
+    <% @tasks.each do |task| %>
+      <li><%= link_to task.id, edit_path %> : <%= task.content %>：<%= task.status %></li>
+    <% end %>
+  </ul>
+  <%= paginate @tasks %>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <li><%= link_to task.id, task %> : <%= task.content %>：<%= task.status %></li>
-  <% end %>
-</ul>
-<%= paginate @tasks %>
-
-<%= link_to "新規タスクの追加", new_task_path %>
+<% else %>
+ <h1>Welocome to ManageYourTasks</h1>
+ <%= link_to "Sign Up Now!", signup_path %>
+<% end %>
